@@ -1,0 +1,95 @@
+﻿@model Lab1.ViewModels.CartViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cart</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right">Subtotal</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+
+                <td class="text-center">@item.Product.Name</td>
+                <td class="text-left">@item.Product.Price</td>
+                <td class="text-left">@item.Amount</td>
+                <td class="text-right">
+                    @((item.Amount * item.Product.Price).ToString("c"))
+                </td>
+
+
+
+            </tr>
+
+        }
+    </tbody>
+
+        @Html.DisplayFor(model => model.TotalPrice)
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.TotalPrice.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+
+
+
+
+</table>
+
+
+
+
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+
+</table>
+    <h4>CartViewModel</h4>
+    <hr />
+
+      
+            @foreach(var item in Model.Products)
+            { 
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Product.Price)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => item.Amount)
+                </td>
+             </tr>
+            }
+   
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalPrice)
+        </dd>*@
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
