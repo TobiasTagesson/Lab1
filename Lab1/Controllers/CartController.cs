@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Lab1.Models;
 using Lab1.Services;
 using Lab1.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lab1.Controllers
@@ -12,15 +13,19 @@ namespace Lab1.Controllers
     public class CartController : Controller
     {
         private readonly IProductService _productService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CartController(IProductService productService)
+        public CartController(IProductService productService, UserManager<ApplicationUser> userManager)
         {
             _productService = productService;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
             var cart = Request.Cookies.SingleOrDefault(c => c.Key == "cart");
+            
             var cartIds = cart.Value.Split(',');
+            
             var products = _productService.GetAll();
 
             CartViewModel vm = new CartViewModel();
@@ -51,5 +56,28 @@ namespace Lab1.Controllers
             return View(vm);
 
         }
+
+        [HttpPost]
+        public async Task <IActionResult> PlaceOrder([Bind("TotalPrice,Products")]CartViewModel cart)
+        {
+
+            OrderViewModel vm = new OrderViewModel();
+            Order order = new Order();
+            order.TotalPrice = cart.TotalPrice;
+            order.Date = DateTime.Now;
+            order.UserId = Guid.Parse(_userManager.GetUserId(User));
+
+             order.OrderRows = cart.Products.Select(cartItem => new OrderRow(cartItem)).ToList();
+
+            vm.Order = order;
+
+            var user = await _userManager.GetUserAsync(User);
+
+            vm.User = user;
+
+            return View("OrderSuccess", vm);
+        }
+
+
     }
 }

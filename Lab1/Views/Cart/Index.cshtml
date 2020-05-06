@@ -6,6 +6,8 @@
 
 <h1>Cart</h1>
 
+<form method="post" asp-action="PlaceOrder">
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -17,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Products)
+        @*@foreach (var item in Model.Products)
         {
             <tr>
 
@@ -27,28 +29,61 @@
                 <td class="text-right">
                     @((item.Amount * item.Product.Price).ToString("c"))
                 </td>
-
-
-
             </tr>
 
+        }*@
+
+        @for (int i = 0; i < Model.Products.Count; i++)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Name)
+                @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Price)
+                @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Products[i].Amount)
+                @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)
+
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => modelItem.Products[i].Amount) * (modelItem => modelItem.Products[i].Product.Price).ToString("C")
+                @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)*@
+                @{
+                    var result = Model.Products[i].Amount * Model.Products[i].Product.Price;
+                    <span>@result</span>
+                }
+
+            </td>
+        </tr>
         }
+
     </tbody>
 
         @Html.DisplayFor(model => model.TotalPrice)
-    <tfoot>
-        <tr>
-            <td colspan="3" class="text-right">Total:</td>
-            <td class="text-right">
-                @Model.TotalPrice.ToString("c")
-            </td>
-        </tr>
-    </tfoot>
+<tfoot>
+    <tr>
+        <td colspan="3" class="text-right">Total:</td>
+        <td class="text-right">
+            @Model.TotalPrice.ToString("C")
+        </td>
+        <td>
+
+            <input type="submit" class=" float-right btn btn-success" value="Order" />
+            @*<a class="btn btn-primary" asp-controller="Order" asp-action="PlaceOrder">Order</a>*@
+        </td>
+    </tr>
+    @Html.HiddenFor(model => model.TotalPrice)
+</tfoot>
 
 
 
 
 </table>
+    </form>
 
 
 
