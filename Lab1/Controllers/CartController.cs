@@ -23,8 +23,13 @@ namespace Lab1.Controllers
         public IActionResult Index()
         {
             var cart = Request.Cookies.SingleOrDefault(c => c.Key == "cart");
+            string[] cartIds = new string[0];
             
-            var cartIds = cart.Value.Split(',');
+            if(cart.Value != null)
+            {
+                 cartIds = cart.Value.Split(',');
+            }
+
             
             var products = _productService.GetAll();
 

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Lab1.Services;
 using Lab1.Models;
+using System.Globalization;
 
 namespace Lab1
 {
@@ -60,6 +61,12 @@ namespace Lab1
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            var cultureInfo = new CultureInfo("en-Us");
+            cultureInfo.NumberFormat.CurrencySymbol = "$";
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             app.UseEndpoints(endpoints =>
             {

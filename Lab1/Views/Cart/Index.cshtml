@@ -19,19 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in Model.Products)
-        {
-            <tr>
 
-                <td class="text-center">@item.Product.Name</td>
-                <td class="text-left">@item.Product.Price</td>
-                <td class="text-left">@item.Amount</td>
-                <td class="text-right">
-                    @((item.Amount * item.Product.Price).ToString("c"))
-                </td>
-            </tr>
-
-        }*@
 
         @for (int i = 0; i < Model.Products.Count; i++)
         {
@@ -50,8 +38,7 @@
 
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => modelItem.Products[i].Amount) * (modelItem => modelItem.Products[i].Product.Price).ToString("C")
-                @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)*@
+
                 @{
                     var result = Model.Products[i].Amount * Model.Products[i].Product.Price;
                     <span>@result</span>
@@ -80,49 +67,9 @@
 </tfoot>
 
 
-
-
 </table>
     </form>
 
-
-
-
-
-
-
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-        </tr>
-    </thead>
-
-</table>
-    <h4>CartViewModel</h4>
-    <hr />
-
-      
-            @foreach(var item in Model.Products)
-            { 
-            <tr>
-                <td>
-                    @Html.DisplayNameFor(model => item.Product.Name)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Product.Price)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => item.Amount)
-                </td>
-             </tr>
-            }
-   
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalPrice)
-        </dd>*@
 
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

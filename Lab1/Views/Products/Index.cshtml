@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Index";
 }
-
 <h1>Products</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
     <link rel="stylesheet" href="~/css/products.css">
+    
 
     <div class="d-flex flex-row justify-content-around align-content-around flex-wrap">
         @foreach (var item in Model)
@@ -18,58 +18,16 @@
             <img src="@item.ImageUrl" alt="@item.Name" class=" img-thumbnail" />
             <h3>@item.Name</h3>
             <p>@item.Description</p>
-            <p>@item.Price.ToString("C") <span class="float-right btn btn-outline-success">@Html.ActionLink("Buy", "AddToCart", "Products", new { id = item.Id }, new { @class = "btn btn-success" })</span></p>
 
-            
+            <p>
+                  @item.Price.ToString("C")
+                @if (User.Identity.IsAuthenticated)
+                {
+                 <span class="float-right btn-outline-success">@Html.ActionLink("Buy", "AddToCart", "Products", new { id = item.Id }, new { @class = "btn btn-success" })</span>
+                }
+            </p>           
         </div>
         }
     </div>
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>*@
-    <tbody>
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+
