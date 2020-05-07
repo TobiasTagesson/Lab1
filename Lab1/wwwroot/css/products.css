@@ -5,4 +5,7 @@ img {
     max-width: 100%;
     height: auto;
 }
+.card:hover {
+    border: 2px inset;
+}
 
