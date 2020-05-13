@@ -25,25 +25,25 @@ namespace Lab1.Controllers
             return View(products);
         }
 
-        [Authorize]
-        public IActionResult AddToCart(Guid id)
-        {
-            var cart = Request.Cookies.SingleOrDefault(c => c.Key == "cart");
-            string cartContent = "";
+        //[Authorize]
+        //public IActionResult AddToCart(Guid id)
+        //{
+        //    var cart = Request.Cookies.SingleOrDefault(c => c.Key == "cart");
+        //    string cartContent = "";
 
-            if(cart.Value != null)
-            {
-                cartContent = cart.Value;
-                cartContent += "," + id;
-            }
-            else
-            {
-                cartContent += id;
-            }
+        //    if(cart.Value != null)
+        //    {
+        //        cartContent = cart.Value;
+        //        cartContent += "," + id;
+        //    }
+        //    else
+        //    {
+        //        cartContent += id;
+        //    }
 
-            Response.Cookies.Append("cart", cartContent);
+        //    Response.Cookies.Append("cart", cartContent);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }
