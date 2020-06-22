@@ -15,7 +15,7 @@ namespace Lab1.Models
 
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public List<OrderRow> OrderRows { get; set; }
         public decimal TotalPrice { get; set; }
     }
@@ -33,3 +33,4 @@ namespace Lab1.Models
         public int Amount { get; set; }
     }
 }
+

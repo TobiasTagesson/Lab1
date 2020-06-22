@@ -8,6 +8,10 @@ namespace Lab1.ViewModels
 {
     public class OrderViewModel
     {
+        public OrderViewModel()
+        {
+            Order = new Order();
+        }
         public Order Order { get; set; }
         public ApplicationUser User { get; set; }
 

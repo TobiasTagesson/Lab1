@@ -8,6 +8,11 @@ namespace Lab1.ViewModels
 {
     public class CartViewModel
     {
+        public CartViewModel()
+        {
+            Products = new List<CartItem>();
+        }
+
         public List<CartItem> Products { get; set; }
         public decimal TotalPrice { get; set; }
     }

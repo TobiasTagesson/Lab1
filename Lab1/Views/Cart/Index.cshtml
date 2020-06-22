@@ -23,29 +23,31 @@
 
             @for (int i = 0; i < Model.Products.Count; i++)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Name)
-                        @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Price)
-                        @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Price)
-                    </td>
-                    <td class="text-right">
-                        @Html.DisplayFor(modelItem => modelItem.Products[i].Amount)
-                        @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Name)
+                    @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Products[i].Product.Price)
+                    @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Price)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(modelItem => modelItem.Products[i].Amount)
+                    @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)
+                </td>
+                <td>
+                    @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Id)
+                </td>
+                <td class="text-right">
 
-                    </td>
-                    <td class="text-right">
+                    @{
+                        var result = Model.Products[i].Amount * Model.Products[i].Product.Price;
+                        <span>@result</span>
+                    }
 
-                        @{
-                            var result = Model.Products[i].Amount * Model.Products[i].Product.Price;
-                            <span>@result</span>
-                        }
-
-                    </td>
-                </tr>
+                </td>
+            </tr>
             }
 
         </tbody>

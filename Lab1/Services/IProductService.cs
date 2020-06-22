@@ -9,6 +9,6 @@ namespace Lab1.Services
     public interface IProductService
     {
         Product GetById(Guid Id);
-        IEnumerable<Product> GetAll();
+        public Task<IEnumerable<Product>> GetAll();
     }
 }
