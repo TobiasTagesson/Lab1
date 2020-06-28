@@ -1,0 +1,13 @@
+﻿
+@model Lab1.ViewModels.CartSummaryViewModel
+    
+@if(Model.CartAmount > 0)
+{
+    <li>
+        <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">🛒
+            <span id="cart-status">
+                @Model.CartAmount
+            </span>
+        </a>
+    </li>
+}

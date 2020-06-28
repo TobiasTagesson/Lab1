@@ -1,4 +1,4 @@
-﻿@model Lab1.ViewModels.CartViewModel
+﻿    @model Lab1.ViewModels.CartViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -36,9 +36,6 @@
                     @Html.DisplayFor(modelItem => modelItem.Products[i].Amount)
                     @Html.HiddenFor(modelItem => modelItem.Products[i].Amount)
                 </td>
-                <td>
-                    @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Id)
-                </td>
                 <td class="text-right">
 
                     @{
@@ -47,12 +44,14 @@
                     }
 
                 </td>
+                <td>
+                    @Html.HiddenFor(modelItem => modelItem.Products[i].Product.Id)
+                </td>
             </tr>
             }
 
         </tbody>
 
-        @*@Html.DisplayFor(model => model.TotalPrice)*@
         <tfoot>
             <tr>
                 <td colspan="3" class="text-right">Total:</td>
@@ -60,9 +59,7 @@
                     @Model.TotalPrice.ToString("C")
                 </td>
 
-                @*<td>
-                    <input type="submit" class=" float-right btn btn-success" value="Order" />
-                </td*@>
+
             </tr>
             @Html.HiddenFor(model => model.TotalPrice)
         
@@ -75,6 +72,6 @@
 
 
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) 
     <a asp-action="Index">Back to List</a>
 </div>

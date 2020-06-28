@@ -6,7 +6,12 @@
 
 <h1>Order Success</h1>
 
-<h1>Click here to view order</h1>
-<a class="btn btn-success float-right" asp-controller="Order" asp-action="ViewOrder">View Order</a>
+<a href="@Url.Action("ViewOrder","Order")">
+    <input type="button" value="Click here to view your order" />
+</a>
+
+
+@*<a class="btn btn-success float-right" asp-controller="Order" asp-action="ViewOrder">View Order</a>*@
+
 
 

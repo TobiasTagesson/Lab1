@@ -43,39 +43,7 @@ namespace Lab1.Controllers
         }
 
 
-        //public IActionResult Index()
-        //{
-        //    var products = _productService.GetAll();
-
-        //    return View(products);
-        //}
-
-
-
-        //[Authorize]
-        //public IActionResult AddToCart(Guid id)
-        //{
-        //    var cart = Request.Cookies.SingleOrDefault(c => c.Key == "cart");
-        //    string cartContent = "";
-
-        //    if (cart.Value != null)
-        //    {
-        //        cartContent = cart.Value;
-        //        cartContent += "," + id;
-        //    }
-        //    else
-        //    {
-        //        cartContent += id;
-        //    }
-
-        //    Response.Cookies.Append("cart", cartContent);
-
-        //    return RedirectToAction("Index");
-        //}
-
-
         [Authorize]
-     //   [HttpPost]
         public async Task<IActionResult> AddToCart(Guid productId)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -92,7 +60,6 @@ namespace Lab1.Controllers
 
                 var itemJson = JsonConvert.SerializeObject(item);
                 request.Content = new StringContent(itemJson, Encoding.UTF8, "application/json");
-                //request.Headers.Add("User-Agent", "AvcPgm.UI");
                 var response = await httpClient.SendAsync(request);
 
                 return RedirectToAction("Index");

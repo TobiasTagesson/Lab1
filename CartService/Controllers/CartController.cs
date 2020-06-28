@@ -24,34 +24,24 @@ namespace CartService.Controllers
         public ActionResult<IEnumerable<Product>> GetAllCartItemsByUserId(string userId)
         {
             var items = _cartService.GetAllCartItemsByUserId(userId);
-            if (items.Count == 0)
-            {
-                return NotFound("The cart is empty");
-            }
-            else
-            {
 
                 return Ok(items);
-            }
+
         }
         [HttpPost]
         public ActionResult<Product> AddToCart(Product product)
         {
-            var itemTocart = new Product();
+            var itemExists =  _cartService.GetItemFromCart(product);
 
-            var itemExist = _cartService.GetItemFromCart(product);
-
-            if (itemExist == null)
+            if (itemExists == null)
             {
                 product.Amount = 1;
                 _cartService.AddToCart(product);
             }
             else
             {
-                itemExist.Amount++;
-                _cartService.Update(itemExist);
-                
-
+                itemExists.Amount++;
+                _cartService.Update(itemExists);               
             }
 
                 return Ok();
@@ -59,6 +49,10 @@ namespace CartService.Controllers
 
         public ActionResult<Product> DeleteCart(string id)
         {
+            if(id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
             _cartService.DeleteCart(id);
 
             return Ok();

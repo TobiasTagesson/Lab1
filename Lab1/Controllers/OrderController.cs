@@ -48,12 +48,40 @@ namespace Lab1.Controllers
             if (orderItems == null)
                 return NotFound("Order not found");
 
+            ////var orderItems2 = orderItems.OrderBy(x => x.Date).FirstOrDefault();
+
+            //List<OrderRow> orderRows = new List<OrderRow>();
+            //var vm = new OrderViewModel();
+
+            //foreach (var item in orderItems)
+            //{
+            //    foreach (var a in item.OrderRowsDto)
+            //    {
+            //        var orderItem = new OrderRow();
+            //        orderItem.Product = await GetProductById(a.ItemId);
+            //        orderItem.Amount = a.Amount;
+            //        orderRows.Add(orderItem);
+            //    }
+
+            //    vm.Order.Date = item.Date;
+            //    vm.Order.TotalPrice = item.TotalPrice;
+            //    vm.Order.OrderRows = orderRows;
+            //    vm.Order.UserId = item.UserId;
+            //    vm.Order.Id = item.Id;
+            //    var user = _userManager.GetUserAsync(User);
+            //    vm.User = await user;
+            //}
+
+
+
+            // Selecting the order with the newest date
+            var orderItems2 = orderItems.OrderByDescending(x => x.Date).FirstOrDefault();
+
             List<OrderRow> orderRows = new List<OrderRow>();
             var vm = new OrderViewModel();
 
-            foreach (var item in orderItems)
-            {
-                foreach (var a in item.OrderRowsDto)
+            
+                foreach (var a in orderItems2.OrderRowsDto)
                 {
                 var orderItem = new OrderRow();
                     orderItem.Product = await GetProductById(a.ItemId);
@@ -61,14 +89,14 @@ namespace Lab1.Controllers
                     orderRows.Add(orderItem);
                 }
 
-                vm.Order.Date = item.Date;
-                vm.Order.TotalPrice = item.TotalPrice;
+            vm.Order.Date = orderItems2.Date;
+                vm.Order.TotalPrice = orderItems2.TotalPrice;
                 vm.Order.OrderRows = orderRows;
-                vm.Order.UserId = item.UserId;
-                vm.Order.Id = item.Id;
+                vm.Order.UserId = orderItems2.UserId;
+               vm.Order.Id = orderItems2.Id;
                 var user = _userManager.GetUserAsync(User);
                 vm.User = await user;
-            }
+            
 
             return View("ViewOrder", vm);
         }

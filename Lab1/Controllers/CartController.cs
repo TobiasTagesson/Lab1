@@ -28,28 +28,25 @@ namespace Lab1.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            CartViewModel vm = new CartViewModel();
-
-            string[] cartIds = new string[0];
-
             var httpClient = new HttpClient();
             var cart = await httpClient.GetStringAsync("https://localhost:44315/cart/cart/GetAllCartItemsByUserId/" + (user.Id));
             var cartItem = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItemDto>>(cart);
 
             return cartItem;
-
         }
 
         public async Task<IActionResult> Index()
         {
-            var shoppingCartItemsDto = await GetCartItems();
-            if (shoppingCartItemsDto == null)
+            var cartItems = await GetCartItems();
+            if (cartItems == null || cartItems.Count() == 0)
+            { 
                 return NotFound("Shoppingcart not found");
+            }
 
            
             var vm = new CartViewModel();
 
-            foreach (var item in shoppingCartItemsDto)
+            foreach (var item in cartItems)
             {
                 var cartItem = new CartItem();
                 cartItem.Product = await GetProductById(item.ItemId);
@@ -74,31 +71,13 @@ namespace Lab1.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> PlaceOrder([Bind("TotalPrice,Products")]CartViewModel cart)
-        //{
-
-        //    OrderViewModel vm = new OrderViewModel();
-        //    Order order = new Order();
-        //    order.TotalPrice = cart.TotalPrice;
-        //    order.Date = DateTime.Now;
-        //    order.UserId = Guid.Parse(_userManager.GetUserId(User));
-
-        //    order.OrderRows = cart.Products.Select(cartItem => new OrderRow(cartItem)).ToList();
-
-        //    vm.Order = order;
-
-        //    var user = await _userManager.GetUserAsync(User);
-
-        //    vm.User = user;
-
-        //    return View("OrderSuccess", vm);
-        //}
-
         public async Task<ActionResult> PlaceOrder([Bind("TotalPrice,Products")]CartViewModel cart)
         {
             var user = await _userManager.GetUserAsync(User);
-            // vill skicka userid, itemid, datetime, amount
+
+            if (user.StreetAddress == null)
+                return NotFound("Nej");
+            
             OrderDto order = new OrderDto();
             OrderViewModel vm = new OrderViewModel();
             foreach (var item in cart.Products)
@@ -131,13 +110,12 @@ namespace Lab1.Controllers
             var response = await httpClient.SendAsync(request);
 
             if (!response.IsSuccessStatusCode)
+            {
                 return BadRequest("Delete shoppingcart items failed.");
+            }
 
             return Ok();
 
-
-            
-            //var cart = await httpClient.GetStringAsync("https://localhost:44315/cart/cart/DeleteCart?id=" + (userId));
 
         }
 
@@ -150,7 +128,6 @@ namespace Lab1.Controllers
 
                 var itemJson = JsonConvert.SerializeObject(order);
                 request.Content = new StringContent(itemJson, Encoding.UTF8, "application/json");
-                //request.Headers.Add("User-Agent", "AvcPgm.UI");
                 var response = await httpClient.SendAsync(request);
 
                 return Ok();

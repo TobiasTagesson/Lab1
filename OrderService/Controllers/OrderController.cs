@@ -24,15 +24,22 @@ namespace OrderService.Controllers
 
         public ActionResult<OrderDto> PlaceOrder(OrderDto order)
         {
-
-           // var itemJson = JsonConvert.DeserializeObject<OrderDto>(order);
             _orderService.PlaceOrder(order);
             return Ok();
         }
         public ActionResult<OrderDto> ShowOrder(string id)
         {
+            if(string.IsNullOrEmpty(id))
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
             var orderItems = _orderService.GetOrderItemsByUserId(id);
 
+            if (orderItems.Count == 0 || orderItems == null)
+            {
+                return NotFound();
+            }
             return Ok(orderItems);
         }
     }
