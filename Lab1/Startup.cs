@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Lab1.Services;
 using Lab1.Models;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Lab1
 {
@@ -38,6 +39,15 @@ namespace Lab1
                     {
                         builder.WithOrigins("http://localhost:50841");
                     });
+            });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                // requires using Microsoft.AspNetCore.Http;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
 
@@ -67,6 +77,7 @@ namespace Lab1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
 

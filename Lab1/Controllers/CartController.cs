@@ -61,6 +61,24 @@ namespace Lab1.Controllers
             return View(vm);
         }
 
+        public async Task<IActionResult> CompleteOrder(ApplicationUser user)
+        {
+            var user1 = await _userManager.FindByIdAsync(user.Id);
+            user1.FirstName = user.FirstName;
+            user1.LastName = user.LastName;
+            user1.StreetAddress = user.StreetAddress;
+            user1.PostalCode = user.PostalCode;
+            user1.City = user.City;
+            user1.PhoneNumber = user.PhoneNumber;
+
+
+            await _userManager.UpdateAsync(user1);
+
+            // Hur uppdaterar jag användarens uppgifter och sedan går vidare? Update async verkar uppdatera även Id.
+
+            return RedirectToAction("Index");
+        }
+
         public async Task<Product> GetProductById(Guid id)
         {
             var httpClient = new HttpClient();
@@ -75,11 +93,18 @@ namespace Lab1.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user.StreetAddress == null)
-                return NotFound("Nej");
+            //TODO Add Login redirect page
+            
             
             OrderDto order = new OrderDto();
             OrderViewModel vm = new OrderViewModel();
+
+            if (user.StreetAddress == null)
+            {
+                vm.User = user;
+                return View("CompleteOrder", vm);
+            }
+
             foreach (var item in cart.Products)
             {
                 OrderRowDto orderRowObject = new OrderRowDto();

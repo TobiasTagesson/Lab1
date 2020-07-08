@@ -1,0 +1,69 @@
+﻿@model Lab1.ViewModels.OrderViewModel
+
+<form asp-controller="cart" asp-action="CompleteOrder" method="post" class="form-horizontal" role="form">
+     <input type="hidden" asp-for="@Model.User.Id" class="form-control" value="@Model.User.Id" />
+        <input type="hidden" asp-for="@Model.User.UserName" class="form-control" value="@Model.User.UserName" />
+
+        <div class="form-group">
+            <label asp-for="@Model.User.FirstName" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.FirstName" class="form-control" value="@Model.User.FirstName" />
+                <span asp-validation-for="@Model.User.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.LastName" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.LastName" class="form-control" value="@Model.User.LastName" />
+                <span asp-validation-for="@Model.User.LastName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.StreetAddress" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.StreetAddress" class="form-control" value="@Model.User.StreetAddress" />
+                <span asp-validation-for="@Model.User.StreetAddress" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.PostalCode" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.PostalCode" class="form-control" value="@Model.User.PostalCode" />
+                <span asp-validation-for="@Model.User.PostalCode" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.City" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.City" class="form-control" value="@Model.User.City" />
+                <span asp-validation-for="@Model.User.City" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.PhoneNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.PhoneNumber" class="form-control" value="@Model.User.PhoneNumber" />
+                <span asp-validation-for="@Model.User.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.User.Email" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="@Model.User.Email" class="form-control" value="@Model.User.Email" />
+                <span asp-validation-for="@Model.User.Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-success" value="Complete order" />
+            </div>
+        </div>
+    
+    </form>

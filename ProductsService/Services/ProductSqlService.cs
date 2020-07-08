@@ -26,5 +26,29 @@ namespace ProductsService.Services
 
             return product; 
         }
+
+        public Product Create (Product product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+            return product;
+        }
+        public bool Delete(Guid id)
+        {
+            try
+            {
+                var product = GetById(id);
+                _context.Products.Remove(product);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+
+            }
+        }
     }
 }

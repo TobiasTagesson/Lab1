@@ -40,6 +40,16 @@ namespace ProductsService.Services
             }
         }
 
+        public Product Create(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Product> GetAll()
         {
             return products;

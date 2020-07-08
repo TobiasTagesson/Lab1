@@ -40,5 +40,34 @@ namespace ProductsService.Controllers
             return Ok(product);
         }
 
+        [HttpPost]
+        public ActionResult<Product> Create([FromBody] Product product)
+        {
+            if(product == null)
+            {
+                return BadRequest();
+            }
+            var createdProduct = _service.Create(product);
+
+            return Ok(createdProduct);
+        }
+
+        [HttpDelete]
+        public ActionResult<Guid> Delete(Guid id)
+        {
+            var wasDeleted = _service.Delete(id);
+
+            if (wasDeleted)
+            {
+                return Ok(id);
+            }
+            else
+            {
+                return NotFound(id);
+            }
+        }
+
+
+
     }
 }

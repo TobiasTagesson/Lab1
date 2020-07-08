@@ -10,6 +10,8 @@ namespace ProductsService.Services
         {
             Product GetById(Guid Id);
             IEnumerable<Product> GetAll();
+            Product Create(Product product);
+            bool Delete(Guid id);
         }
     }
 
