@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using CartService.Controllers;
 using CartService.Models;
 using CartService.Services;
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +34,7 @@ namespace CartService
             services.AddDbContextPool<CartDbContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICartService, CartSQLService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

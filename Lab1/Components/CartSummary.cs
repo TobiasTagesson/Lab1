@@ -32,12 +32,12 @@ namespace Lab1.Components
 
         private async Task<IEnumerable<CartItemDto>> GetCartItems()
         {
-            var user = _userManager.GetUserId(Request.HttpContext.User);
+            var Id = _userManager.GetUserId(Request.HttpContext.User);
 
-            if (user != null)
+            if (Id != null)
             {
             var httpClient = new HttpClient();
-            var cart = await httpClient.GetStringAsync("https://localhost:44315/cart/cart/GetAllCartItemsByUserId/" + (user));
+            var cart = await httpClient.GetStringAsync("https://localhost:44315/cart/cart/GetAllCartItemsByUserId/" + (Id));
             var cartItem = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CartItemDto>>(cart);
 
             return cartItem;

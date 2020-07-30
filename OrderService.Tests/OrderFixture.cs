@@ -1,4 +1,4 @@
-﻿using ProductsService.Models;
+﻿using OrderService.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -6,39 +6,41 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ProductsService.Tests
+namespace OrderService.Tests
 {
-    public class ProductFixture : IDisposable
+    public class OrderFixture : IDisposable
     {
-        public Product product { get; private set; }
+        public OrderDto order { get; private set; }
 
-        public ProductFixture()
+        public OrderFixture()
         {
-            product = Initialize().Result;
+            order = Initialize().Result;
         }
 
-        private async Task<Product> Initialize()
+        private async Task<OrderDto> Initialize()
         {
             using (var client = new TestClientProvider().Client)
             {
                 var payload = JsonSerializer.Serialize(
-                    new Product()
+                    new OrderDto()
                     {
-                        Description = "Testproduktbeskrivning",
-                        Name = "Testprodukt",
-                        Price = 123.45M,
-                        ImageUrl = "/images/Dunlop.jpg"
-                    });
+                        Date = DateTime.Now,
+                        Id = Guid.NewGuid(),
+                        TotalPrice = 123,
+                        UserId = "c30936a4-80b0-4209-84e2-98e9336e9c80",
+                        OrderRowsDto = new List<OrderRowDto>()
+
+                    }) ;
 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"/api/products/create", content);
+                var response = await client.PostAsync($"/api/order/placeorder", content);
 
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
-                    var createdProduct = await JsonSerializer.DeserializeAsync<Product>(responseStream,
+                    var createdOrder = await JsonSerializer.DeserializeAsync<OrderDto>(responseStream,
                     new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
 
-                    return createdProduct;
+                    return createdOrder;
                 }
             }
         }
@@ -47,7 +49,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var deleteResponse = await client.DeleteAsync($"/api/products/delete?id={product.Id}");
+                var deleteResponse = await client.DeleteAsync($"/api/order/delete?id={order.Id}");
 
                 using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())
                 {
@@ -56,6 +58,5 @@ namespace ProductsService.Tests
                 }
             }
         }
-
     }
 }

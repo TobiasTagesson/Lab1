@@ -73,7 +73,7 @@ namespace ProductsService.Tests
                         Description = "Testproduktbeskrivning",
                         Name = "Testprodukt",
                         Price = 123.45M,
-                        ImageUrl = "https://shop.wilson.com/media/catalog/product/cache/38/image/9df78eab33525d08d6e5fb8d27136e95/c/f/cf893c83c0ff231061c2beb3f5a68306228e5d5c_wrt73900u_pro_staff_97_bl_bl_side.jpg"
+                        ImageUrl = ""
                     });
 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -107,13 +107,15 @@ namespace ProductsService.Tests
             {
                 Guid productId = Guid.Empty;
 
+
+                // Skapa en produkt
                 var payload = JsonSerializer.Serialize(
                     new Product()
                     {
                         Description = "Testproduktbeskrivning",
                         Name = "Testprodukt",
                         Price = 123.45M,
-                        ImageUrl = "https://shop.wilson.com/media/catalog/product/cache/38/image/9df78eab33525d08d6e5fb8d27136e95/c/f/cf893c83c0ff231061c2beb3f5a68306228e5d5c_wrt73900u_pro_staff_97_bl_bl_side.jpg"
+                        ImageUrl = "/images/Babolat.jpg"
                     });
 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -128,6 +130,8 @@ namespace ProductsService.Tests
                     productId = product.Id;
                 }
 
+                // Radera produkten
+                
                 var deleteResponse = await client.DeleteAsync($"/api/products/delete?id={productId}");
 
                 using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())

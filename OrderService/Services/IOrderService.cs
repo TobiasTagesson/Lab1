@@ -10,6 +10,8 @@ namespace OrderService.Services
     {
         OrderDto PlaceOrder(OrderDto order);
         List<OrderDto> GetOrderItemsByUserId(string id);
+        bool Delete(Guid id);
+
 
     }
 }

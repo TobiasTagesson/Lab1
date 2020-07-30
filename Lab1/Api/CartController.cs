@@ -29,7 +29,6 @@ namespace Lab1.Api
 
             Response.Cookies.Append("cart", cartContent);
 
-          //  var totalItems =  
 
             return Ok();
         }

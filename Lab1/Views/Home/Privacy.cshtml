@@ -9,30 +9,53 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    När du skapar ett konto hos oss på TT:s Tennis så sparar vi dina uppgifter så som namn, adress <br />
-    och telefonnummer samt tidigare ordrar för att din köpupplevelse ska bli amazing. För att radera uppgiftera <br>
-    så måste du avsluta ditt konto genom att klicka här ->
+
+    We at TT:s Tennis protect your personal privacy. By creating an account on the website<br />
+    you agree that TT:s Tennis processes your personal data in accordance with the privacy policy<br />
+    and applicable laws of personal data.<br /><br />
+    Personal information includes all information that can be used to identify a person.<br />
+    This means that we are careful with the personal data we handle and store about you.<br />
+    We are responsible and comply with the rules that apply to data protection.<br />
+    <br /><br />
+
+    The reason we need your personal data is to make it possible for you to shop online and <br />
+    to have your purchased products delivered.<br /><br />
+
+    You as the customer have the rights to have your information deleted. Go to your profile - Personal Data - Delete <br />
+    to delete your account and all your personal data.
+
+    The data we store is:
+    Name, address, phonenumber, email address and purchase history.<br />
+    When deleting your account the purchase history is NOT deleted, but the only information <br />
+    in the purchase database that connects the purchase to a specific customer is an ID number which <br />
+    can't be connected to a deleted customer. <br /><br />
+
+    For further information about GDPR and how we handle personal information, please contact us at tt@tt.se
 </p>
 
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li class="nav">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Click here to go to user account @*@User.Identity.Name*@</a>
-        </li>
-        @*<li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>*@
-        @*</li>*@
-    }
-    else
-    {
-        @*<li class="nav-item">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"> Click here to go to user account @*@User.Identity.Name*@</a>
+    </li>
+
+
+    @*<li class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>*@
+    @*</li>*@
+}
+else
+{
+    @*<li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
         </li>*@
-        <li class="nav">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
-    }
+<li class="nav">
+    @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>*@
+    <a class="btn btn-primary float-right" asp-area="Identity" asp-page="/Account/Login">Login</a>
+
+</li>
+}
 

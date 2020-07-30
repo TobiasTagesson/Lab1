@@ -1,5 +1,7 @@
 ﻿@model Lab1.ViewModels.OrderViewModel
 
+
+    <h3>Fill out the fields to complete your order</h3>
 <form asp-controller="cart" asp-action="CompleteOrder" method="post" class="form-horizontal" role="form">
      <input type="hidden" asp-for="@Model.User.Id" class="form-control" value="@Model.User.Id" />
         <input type="hidden" asp-for="@Model.User.UserName" class="form-control" value="@Model.User.UserName" />

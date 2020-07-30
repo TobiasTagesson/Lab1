@@ -25,8 +25,9 @@ namespace OrderService.Controllers
         public ActionResult<OrderDto> PlaceOrder(OrderDto order)
         {
             _orderService.PlaceOrder(order);
-            return Ok();
+            return Ok(order);
         }
+
         public ActionResult<OrderDto> ShowOrder(string id)
         {
             if(string.IsNullOrEmpty(id))
@@ -40,7 +41,19 @@ namespace OrderService.Controllers
             {
                 return NotFound();
             }
+
             return Ok(orderItems);
+        }
+
+        public ActionResult<OrderDto> Delete(Guid id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+            _orderService.Delete(id);
+
+            return Ok();
         }
     }
 }

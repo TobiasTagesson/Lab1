@@ -74,7 +74,6 @@ namespace Lab1.Controllers
 
             await _userManager.UpdateAsync(user1);
 
-            // Hur uppdaterar jag användarens uppgifter och sedan går vidare? Update async verkar uppdatera även Id.
 
             return RedirectToAction("Index");
         }
@@ -93,7 +92,6 @@ namespace Lab1.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            //TODO Add Login redirect page
             
             
             OrderDto order = new OrderDto();

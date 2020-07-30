@@ -1,4 +1,4 @@
-﻿using ProductsService.Models;
+﻿using CartService.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -6,13 +6,13 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ProductsService.Tests
+namespace CartService.Tests
 {
-    public class ProductFixture : IDisposable
+    public class CartFixture : IDisposable
     {
         public Product product { get; private set; }
 
-        public ProductFixture()
+        public CartFixture()
         {
             product = Initialize().Result;
         }
@@ -24,14 +24,14 @@ namespace ProductsService.Tests
                 var payload = JsonSerializer.Serialize(
                     new Product()
                     {
-                        Description = "Testproduktbeskrivning",
-                        Name = "Testprodukt",
-                        Price = 123.45M,
-                        ImageUrl = "/images/Dunlop.jpg"
+                        ItemId = new Guid ("a9e5806a-5529-442c-a5be-f557f9494f39"),
+                        Amount = 1,
+                        UserId = "eeb2cc01-0120-48d7-a7a7-9654301f6477"
+
                     });
 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync($"/api/products/create", content);
+                var response = await client.PostAsync($"/cart/cart/addtocart", content);
 
                 using (var responseStream = await response.Content.ReadAsStreamAsync())
                 {
@@ -47,7 +47,7 @@ namespace ProductsService.Tests
         {
             using (var client = new TestClientProvider().Client)
             {
-                var deleteResponse = await client.DeleteAsync($"/api/products/delete?id={product.Id}");
+                var deleteResponse = await client.DeleteAsync($"/cart/cart/deletecart?id={product.UserId}");
 
                 using (var responseStream = await deleteResponse.Content.ReadAsStreamAsync())
                 {
@@ -56,6 +56,5 @@ namespace ProductsService.Tests
                 }
             }
         }
-
     }
 }

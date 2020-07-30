@@ -20,10 +20,10 @@ namespace CartService.Controllers
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
-        [HttpGet("{userId}")]
-        public ActionResult<IEnumerable<Product>> GetAllCartItemsByUserId(string userId)
+        [HttpGet("{Id}")]
+        public ActionResult<IEnumerable<Product>> GetAllCartItemsByUserId(string Id)
         {
-            var items = _cartService.GetAllCartItemsByUserId(userId);
+            var items = _cartService.GetAllCartItemsByUserId(Id);
 
                 return Ok(items);
 
@@ -44,11 +44,11 @@ namespace CartService.Controllers
                 _cartService.Update(itemExists);               
             }
 
-                return Ok();
+                return Ok(product);
         }
 
         public ActionResult<Product> DeleteCart(string id)
-        {
+         {
             if(id == null)
             {
                 throw new ArgumentNullException(nameof(id));
@@ -57,6 +57,8 @@ namespace CartService.Controllers
 
             return Ok();
         }
+
+
     }
 
 }

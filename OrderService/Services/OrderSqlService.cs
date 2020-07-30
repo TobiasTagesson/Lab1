@@ -22,12 +22,11 @@ namespace OrderService.Services
             if (String.IsNullOrEmpty(id))
                 
                 throw new ArgumentNullException(nameof(id));
-            //string desId = Newtonsoft.Json.JsonConvert.DeserializeObject<string>(id);
+ 
+            // Krasch ibland?
             var orderItems = _context.Orders.Include(z => z.OrderRowsDto)
                 .Where(x => x.UserId == id)
                 .ToList();
-
-            // var orderItems = _context.Orders.Where(x => x.UserId == id).Select(z => z.OrderRowsDto).ToList();
 
 
             return orderItems;
@@ -38,6 +37,24 @@ namespace OrderService.Services
             _context.Orders.Add(order);
             _context.SaveChanges();
             return order;
+        }
+
+        public bool Delete(Guid id)
+        {
+            try
+            {
+                OrderDto order = new OrderDto() { Id = id };
+                _context.Orders.Attach(order);
+                _context.Orders.Remove(order);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+
+            }
         }
     }
 }

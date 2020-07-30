@@ -14,5 +14,6 @@ namespace CartService.Services
         public List<Product> GetAllCartItemsByUserId(string userId);
         Product GetItemFromCart(Product product);
         public Product Update(Product product);
+
     }
 }

@@ -23,10 +23,10 @@ namespace Lab1.Models
     public class OrderRowDto
     {
 
-        //public string Id { get; set; }
+
         public Guid ItemId { get; set; }
         public int Amount { get; set; }
-        //public DateTime OrderDate { get; set; }
+
 
     }
 }
